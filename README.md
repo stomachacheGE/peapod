@@ -36,61 +36,41 @@ A key-value pair that you can attach to an artifact.
 # Command line client for Peapod binary archiving system.
 
 ## Requirements
-In order to use the peapod client, you will need Python 2.7.10, Pip and Virtualenv.
+In order to use the peapod client, you will need Java 7 or above.
 
-
-### Install Python 2.7.10
-I am not going to teach you how to install Python, am I?
-### Install Pip
-Pip is included in python 2.7.10, so just run the following:
-```bash
-python -m "ensurepip"
-```
-### Install Virtualenv
-```bash
-python -m "pip" install virtualenv
-```
-
-## How to setup your virtualenv
-Go in the peapod-client folder and run the following commands to create your virtualenv and install all required dependencies
-```bash
-git clone git@source.services.ggs-net.com:peapod/peapod-client.git
-cd peapod-client
-# create a virtualenv named 'venv'
-python -m "virtualenv" venv
-# activate the virtualenv
-source ./venv/bin/activate
-# in windows OS, just run .\venv\Scripts\activate
-# install the requirements in the virtualenv
-python -m "pip" install -r requirements.txt
-
-# You are ready to go now!
-# Type the following to get a useful help message:
-python peapod.py
-```
+## Dependencies
+Since `assembly` plugin was used to build the project, all dependencies are already included in the `.jar` file.
 
 ## How to configure peapod
 
-The peapod client reads all the configuration it needs from a single file named config.ini.
-By default, the file config.ini located in the same folder as the peapod.py file will be used.
-It is possible to make peapod use a different config file specifying its path with the option --configfile <configPath>
-
-Here is an example of config.ini file, with the configuration to access the peapod production instance:
-
-```bash
-[user]
-name=sbruno
-token=ABCDNFHXXUTLFUOHIBLWWFPSNTLTWVYNWDPZFUAZTPJSADPPSQWBYNOBHYYLLRFI
-
-[server]
-address=api01.peapod.hh-wev.ggs-net.com
-port=50000
-```
+The peapod client reads the credentials needed either from `peapod.credentials` file in the project root folder or you can specify credentials when you run commands.
 
 If you need a peapod user and token, please access a link like api01.peapod.hh-wev.ggs-net.com:50000/request_token/<user>, where <user> is your AD account.
 You will receive the credentials in your GGS email.
 
 For any other requests (requesting for permissions, creation of a pod, creation of a peapod service user) please contact (what remains of) TI.
+
+### Set credentials in a file
+
+Here is an example of `peapod.credentials` file:
+
+```bash
+name=<your_username>
+token=<your_token>
+```
+You do not need create this file manually. Instead, you can run the following command:
+
+```bash
+java -jar peapod.jar -setCredentials <your_username>:<your_token>
+
+```
+### Set credentials when running command
+
+As an alternative, you can specify the credentials as system properties:
+
+```bash
+java -Duser=<username> -Dtoken=<token> -jar peapod.jar -listPods
+```
 
 ----------------------------------------------------------------------
 
@@ -98,76 +78,86 @@ For any other requests (requesting for permissions, creation of a pod, creation 
 
 ### Help:
 ```bash
-python peapod.py -h | --help
+java -jar peapod.jar -h | --help
+```
+### Credentials:
+```bash
+java -jar peapod.jar -setCredentials <username>:<token>
 ```
 
 ## Pods
 ### List all pods
 ```bash
-python peapod.py --listpods
+java -jar peapod.jar -listPods
 ```
 
 ### Create a pod
 ```bash
-python peapod.py --createpod myPod
+java -jar peapod.jar -createPod <myPod>
 ```
 
 ### Delete a pod
 ```bash
-python peapod.py --deletepod myPod
+java -jar peapod.jar -deletePod <myPod>
 ```
 
 
 ## Peas
 ### Create a pea in a specific pod
 ```bash
-python peapod.py --createpea myPod:myPea
+java -jar peapod.jar -createPea <myPod>:<myPea> [-description <description>]
 ```
 
 
 ### Delete a pod
 ```bash
-python peapod.py --deletepea myPod:myPea
+java -jar peapod.jar -deletePea <myPod>:<myPea>
 ```
 
 ## Artifacts
+
+### Get information on an artifact or artifacts of a pea
+```bash
+java -jar peapod.jar -getArtifact <myPod>:<myPea>[:<version>]
+```
+
 ### Upload an artifact of a specific pea
 ```bash
-python peapod.py --upload myPod:myPea:1.0 --filepath target/myPeaBuild_1.0.jar
+java -jar peapod.jar -uploadArtifact <myPod>:<myPea>:<version> -filepath <filepath>
 ```
 
 ### Delete an artifact
 ```bash
-python peapod.py --deleteartifact myPod:myPea:1.0
+java -jar peapod.jar -deleteArtifact <myPod>:<myPea>:<version>
 ```
 
 ### Download an artifact
 ```bash
-python peapod.py --download myPod:myPea:1.0
+java -jar peapod.jar -downloadArtifact <myPod>:<myPea>:<version>
 ```
 
 
 ## Tags
 ### Create a tag
 ```bash
-python peapod.py --createtag released --location myPod:myPea:1.0
+java -jar peapod.jar -createTag <myPod>:<myPea>:<version> -tag <tag>
 ```
 
 ### Delete a tag
 Note that each tag gets converted to capital letters
 ```bash
-python peapod.py --deletetag RELEASED --location myPod:myPea:1.0
+java -jar peapod.jar -createTag <myPod>:<myPea>:<version> -tag <TAG>
 ```
 
 
 ## Comments
 ### Create a comment
 ```bash
-python peapod.py --createcomment "It worked on my PC..." --location myPod:myPea:1.0
+java -jar peapod.jar -createComment <myPod>:<myPea>:<version> -comment <comment>
 ```
 
 ### Delete a comment
 In order to delete a comment you need to have the corresponding comment-id
 ```bash
-python peapod.py --deletecomment 6 --location myPod:myPea:1.0
+java -jar peapod.jar -deleteComment <commentID>
 ```
