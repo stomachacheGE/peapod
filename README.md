@@ -22,13 +22,13 @@ I am not going to explain to you what a version is, am I?
 ### Artifact
 A specific version of a pea in a pod. An artifact is a binary file stored in the Peapod system, identified by <Pod>:<Pea>:<Version>.
 
-## Comment
+### Comment
 I am not going to explain to you what a comment is, am I?
 
-## Tag
+### Tag
 A tag is a label attached to an artifact. Equivalent to a git tag or a jira label.
 
-## Attribute
+### Attribute
 A key-value pair that you can attach to an artifact.
 
 ----------------------------------------------------------------------
@@ -39,13 +39,13 @@ A key-value pair that you can attach to an artifact.
 In order to use the peapod client, you will need Java 7 or above.
 
 ## Dependencies
-Since `assembly` plugin was used to build the project, all dependencies are already included in the `.jar` file.
+Since `maven`, together with `assembly` plugin, was used to build the project, all dependencies are already included in the `.jar` file.
 
 ## How to configure peapod
 
 The peapod client reads the credentials needed either from `peapod.credentials` file in the project root folder or you can specify credentials when you run commands.
 
-If you need a peapod user and token, please access a link like api01.peapod.hh-wev.ggs-net.com:50000/request_token/<user>, where <user> is your AD account.
+If you need a peapod user and token, please access a link like `api01.peapod.hh-wev.ggs-net.com:50000/request_token/<user>`, where <user> is your AD account.
 You will receive the credentials in your GGS email.
 
 For any other requests (requesting for permissions, creation of a pod, creation of a peapod service user) please contact (what remains of) TI.
@@ -76,11 +76,11 @@ java -Duser=<username> -Dtoken=<token> -jar peapod.jar -listPods
 
 # Example Commands
 
-### Help:
+## Help:
 ```bash
 java -jar peapod.jar -h | --help
 ```
-### Credentials:
+## Credentials:
 ```bash
 java -jar peapod.jar -setCredentials <username>:<token>
 ```
@@ -160,4 +160,13 @@ java -jar peapod.jar -createComment <myPod>:<myPea>:<version> -comment <comment>
 In order to delete a comment you need to have the corresponding comment-id
 ```bash
 java -jar peapod.jar -deleteComment <commentID>
+```
+
+----------------------------------------------------
+# Build project with maven
+
+With the `pom.xml` given in the project, you can easily build the project using:
+
+```bash
+mvn clean compile assembly:single
 ```

@@ -12,10 +12,9 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.List;
 
 import org.json.JSONException;
 
@@ -123,7 +122,7 @@ public class APICaller {
     		}
     	
     	//get all headers
-    	Map<String, List<String>> map = connection.getHeaderFields();
+    	//Map<String, List<String>> map = connection.getHeaderFields();
     	//for (Map.Entry<String, List<String>> entry : map.entrySet()) {
     	//	System.out.println("Key : " + entry.getKey() +
     	//                 " ,Value : " + entry.getValue());

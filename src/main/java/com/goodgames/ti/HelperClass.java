@@ -94,13 +94,23 @@ class Response {
 //Exceptions
 
 class ExpiredURLException extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5808771548393659438L;
+
 	public ExpiredURLException(String message) {
         super(message);
     }
 }
 
 class UploadException extends Exception {
-    public UploadException(String message) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3240455588144968720L;
+
+	public UploadException(String message) {
         super(message);
     }
 }
