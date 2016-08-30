@@ -283,7 +283,10 @@ public class Peapod {
 	private static void showHelp() {
 		System.out.println();
 		System.out.println("Set Credentials:");
+		System.out.println("1 - set credentials so that a property file will be created:");
 		System.out.println("java -jar peapod.jar -setCredentials <user>:<token>");
+		System.out.println("2 - provide credentials when you run commands:");	
+		System.out.println("java -Duser=<user> -Dtoken=<token> -jar peapod.jar -<operation>");
 		System.out.println();
 		System.out.println("Pods Operations:");
 		System.out.println("java -jar peapod.jar -listPods");
@@ -406,8 +409,6 @@ public class Peapod {
 			}
 		}
 		
-		//String name = "jenkins";
-		//String token = "CHGXKQTZOXSMRJKESATGDMXHVBQWVBFMOTJRIGLRRJMTWFWZBIZPFFKLIBXAGION";
 				
 		Peapod client = new Peapod(name, token);
 		
