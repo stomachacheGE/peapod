@@ -6,8 +6,7 @@ This command line tool is everything you need to interact with the Peapod system
 
 Peapod is very simple, and in order to use it you just need to understand a few concepts:
 
-### Pod
-A Pod is a container for binaries. A Pod is mapped to an Amazon S3 bucket, but you don't need to know about this.
+* **Pod**. A Pod is a container for binaries. A Pod is mapped to an Amazon S3 bucket, but you don't need to know about this.
 Each Pod is also a separate name-space.
 It's the maven equivalent of the groupId
 
@@ -36,7 +35,7 @@ A key-value pair that you can attach to an artifact.
 # Command line client for Peapod binary archiving system.
 
 ## Requirements
-In order to use the peapod client, you will need Java 7 or above.
+
 
 ## Dependencies
 Since `maven`, together with `assembly` plugin, was used to build the project, all dependencies are already included in the `.jar` file.
@@ -54,13 +53,13 @@ For any other requests (requesting for permissions, creation of a pod, creation 
 
 Here is an example of `peapod.credentials` file:
 
-```bash
+```sh
 name=<your_username>
 token=<your_token>
 ```
 You do not need create this file manually. Instead, you can run the following command:
 
-```bash
+```sh
 java -jar peapod.jar -setCredentials <your_username>:<your_token>
 
 ```
@@ -68,7 +67,7 @@ java -jar peapod.jar -setCredentials <your_username>:<your_token>
 
 As an alternative, you can specify the credentials as system properties:
 
-```bash
+```sh
 java -Duser=<username> -Dtoken=<token> -jar peapod.jar -listPods
 ```
 
@@ -77,96 +76,106 @@ java -Duser=<username> -Dtoken=<token> -jar peapod.jar -listPods
 # Example Commands
 
 ## Help:
-```bash
+```sh
 java -jar peapod.jar -h | --help
 ```
 ## Credentials:
-```bash
+```sh
 java -jar peapod.jar -setCredentials <username>:<token>
 ```
 
 ## Pods
 ### List all pods
-```bash
+```sh
 java -jar peapod.jar -listPods
 ```
 
 ### Create a pod
-```bash
+```sh
 java -jar peapod.jar -createPod <myPod>
 ```
 
 ### Delete a pod
-```bash
+```sh
 java -jar peapod.jar -deletePod <myPod>
 ```
 
 
 ## Peas
 ### Create a pea in a specific pod
-```bash
+```sh
 java -jar peapod.jar -createPea <myPod>:<myPea> [-description <description>]
 ```
 
 
 ### Delete a pod
-```bash
+```sh
 java -jar peapod.jar -deletePea <myPod>:<myPea>
 ```
 
 ## Artifacts
 
 ### Get information on an artifact or artifacts of a pea
-```bash
+```sh
 java -jar peapod.jar -getArtifact <myPod>:<myPea>[:<version>]
 ```
 
 ### Upload an artifact of a specific pea
-```bash
+```sh
 java -jar peapod.jar -uploadArtifact <myPod>:<myPea>:<version> -filepath <filepath>
 ```
 
 ### Delete an artifact
-```bash
+```sh
 java -jar peapod.jar -deleteArtifact <myPod>:<myPea>:<version>
 ```
 
 ### Download an artifact
-```bash
+```sh
 java -jar peapod.jar -downloadArtifact <myPod>:<myPea>:<version>
 ```
 
 
 ## Tags
 ### Create a tag
-```bash
+```sh
 java -jar peapod.jar -createTag <myPod>:<myPea>:<version> -tag <tag>
 ```
 
 ### Delete a tag
 Note that each tag gets converted to capital letters
-```bash
+```sh
 java -jar peapod.jar -createTag <myPod>:<myPea>:<version> -tag <TAG>
 ```
 
 
 ## Comments
 ### Create a comment
-```bash
+```sh
 java -jar peapod.jar -createComment <myPod>:<myPea>:<version> -comment <comment>
 ```
 
 ### Delete a comment
 In order to delete a comment you need to have the corresponding comment-id
-```bash
+```sh
 java -jar peapod.jar -deleteComment <commentID>
 ```
 
 ----------------------------------------------------
 # Build project with maven
 
+In order to use the peapod client, you will need JavaSE-1.7 or above. To build the project, you need Maven 3.2.2 or above.
+
 With the `pom.xml` given in the project, you can easily build the project using:
 
-```bash
+```sh
 mvn clean compile assembly:single
+```
+
+The project is tested with the following environment:
+```sh
+Apache Maven 3.2.2 (NON-CANONICAL_2015-04-01T06:56:20_mockbuild; 2015-04-01T08:56:20+02:00)
+Java version: 1.8.0_65, vendor: Oracle Corporation
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "4.1.13-100.fc21.x86_64", arch: "amd64", family: "unix"
 ```
