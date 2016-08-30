@@ -23,7 +23,7 @@ Since `maven`, together with `assembly` plugin, was used to build the project, a
 The peapod client reads the credentials needed either from `peapod.credentials` file in the project root folder or you can specify credentials when you run commands.
 
 
-### Set credentials in a file
+#### Set credentials in a file
 
 Here is an example of `peapod.credentials` file:
 
@@ -37,15 +37,13 @@ If you do not want to create this file manually, you can run the following comma
 java -jar peapod.jar -setCredentials <your_username>:<your_token>
 
 ```
-### Set credentials when running command
+#### Set credentials when running command
 
 As an alternative, you can specify the credentials as system properties:
 
 ```sh
 java -Duser=<username> -Dtoken=<token> -jar peapod.jar -listPods
 ```
-
-----------------------------------------------------------------------
 
 ## Usages
 
