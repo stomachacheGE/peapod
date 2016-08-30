@@ -112,7 +112,7 @@ java -jar peapod.jar -createTag <myPod>:<myPea>:<version> -tag <tag>
 Delete a tag:
 Note that each tag gets converted to capital letters
 ```sh
-java -jar peapod.jar -createTag <myPod>:<myPea>:<version> -tag <TAG>
+java -jar peapod.jar -deleteTag <myPod>:<myPea>:<version> -tag <TAG>
 ```
 #### Comments
 Create a comment:
